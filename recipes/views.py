@@ -1,6 +1,4 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from django.shortcuts import render 
 
 #from django.shortcuts import render -> este import vai nos ajudar com o html temos que usar
 # tenho que fazer os imports necessarios para aqui de acordo com as funcoes
