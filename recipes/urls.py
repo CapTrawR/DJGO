@@ -1,6 +1,6 @@
 from django.urls import path
 # aqui temos que fazer o import da app 
-from recipes.views import home, contacto, sobre
+from recipes.views import home
 
 '''fazer  o http response'''
 
@@ -13,6 +13,4 @@ isto e um http request'''
 urlpatterns = [
     #criar path e assim
     path('', home),#home,
-    path('sobre/', sobre),
-    path('contacto/', contacto),
 ]

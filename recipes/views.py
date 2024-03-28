@@ -11,10 +11,3 @@ def home(request):
 
 # def sobre(request):
 #     return HttpResponse ('SOBRE') isto era o que tinhamos antes de explicacao
-
-def sobre(request):
-   return render(request, 'recipes/sobre.html')
-
-
-def contacto(request):
-    return render(request, 'recipes/contacto.html')
