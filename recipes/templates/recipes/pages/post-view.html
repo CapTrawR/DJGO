@@ -1,21 +1,13 @@
 {% include "recipes/partials/head.html" %} {% comment %} assim vou buscar o que esta em partials  {% endcomment %}
 
 <body>
-    <h3>
-        asodiamsd
-    </h3>
     {% include "recipes/partials/header.html" %} {% comment %} assim vou buscar o que esta em partials, para a parte do header  {% endcomment %} 
     {% include "recipes/partials/search.html" %}  {% comment %} assim vou buscar o que esta em partials, para a parte do search  {% endcomment %} 
     
 
     <main class="main-content-conteiner">
-        <div class="main-content main-content-list conteiner">
-            {% include "recipes/partials/post.html" %}
-            {% include "recipes/partials/post.html" %}
-            {% include "recipes/partials/post.html" %}
-            {% include "recipes/partials/post.html" %}
-            {% include "recipes/partials/post.html" %}
-            {% include "recipes/partials/post.html" %}
+        <div class="main-content main-content-detail conteiner">
+        {% include "recipes/partials/post.html" %}
         </div>
     </main>
     {% include "recipes/partials/footer.html" %}
