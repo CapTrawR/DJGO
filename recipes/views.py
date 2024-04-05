@@ -7,7 +7,11 @@ from django.shortcuts import render
 #preciso faazer uma pasta chamada template
 
 def home(request):
-    return render(request, 'recipes/pages/home.html')
+    return render(request, 'recipes/pages/home.html');
 
 # def sobre(request):
 #     return HttpResponse ('SOBRE') isto era o que tinhamos antes de explicacao
+
+#nova view para outra pagina
+def postview(request, id):
+    return render(request, 'recipes/pages/post-view.html')

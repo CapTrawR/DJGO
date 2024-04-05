@@ -1,6 +1,6 @@
 from django.urls import path
 # aqui temos que fazer o import da app 
-from recipes.views import home
+from recipes import views
 
 '''fazer  o http response'''
 
@@ -10,7 +10,7 @@ isto e um http request'''
 #     return HttpResponse ('Home')
 '''devia retornar um http response'''
 
-urlpatterns = [
-    #criar path e assim
-    path('', home),#home,
+urlpatterns= [
+    path('',views.home),
+    path('postview/<int:id>/', views.postview)
 ]
