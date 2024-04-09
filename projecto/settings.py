@@ -57,7 +57,9 @@ ROOT_URLCONF = 'projecto.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [], # aqui meto a sub pasta de templates caso queira mudar o caminho
+        'DIRS': [
+            BASE_DIR/ 'base_templates',
+        ], # aqui meto a sub pasta de templates caso queira mudar o caminho
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,7 +120,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR/'base_static', #isto e feito para o base static tem que se meter base dir porque esta no root do projeto
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
