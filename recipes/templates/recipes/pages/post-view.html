@@ -1,16 +1,11 @@
+{% extends "global/base.html" %}
+
 {% include "recipes/partials/head.html" %} {% comment %} assim vou buscar o que esta em partials  {% endcomment %}
 
-<body>
-    {% include "recipes/partials/header.html" %} {% comment %} assim vou buscar o que esta em partials, para a parte do header  {% endcomment %} 
-    {% include "recipes/partials/search.html" %}  {% comment %} assim vou buscar o que esta em partials, para a parte do search  {% endcomment %} 
-    
+{% block title %} Post | {% endblock title %}
 
-    <main class="main-content-conteiner">
+    {% block content %}
         <div class="main-content main-content-detail conteiner">
         {% include "recipes/partials/post.html" %}
         </div>
-    </main>
-    {% include "recipes/partials/footer.html" %}
-</body>
-
-</html>
+    {% endblock content %}

@@ -1,14 +1,20 @@
-{% include "recipes/partials/head.html" %} {% comment %} assim vou buscar o que esta em partials  {% endcomment %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+</head> {% comment %}isto foi movido para aqui para meter o titulo dinamico {% endcomment %}
+    {% include "recipes/partials/head.html" %} {% comment %} assim vou buscar o que esta em partials  {% endcomment %}
+    <title> {%block title%} {%endblock title%}Babylish</title>  
 
 <body>
+
     {% include "recipes/partials/header.html" %} {% comment %} assim vou buscar o que esta em partials, para a parte do header  {% endcomment %} 
     {% include "recipes/partials/search.html" %}  {% comment %} assim vou buscar o que esta em partials, para a parte do search  {% endcomment %} 
     
 
     <main class="main-content-conteiner">
-    {% block content %}
-    {% comment %} tenho que usar isto no mais meter o block para ir buscar isto !! {% endcomment %} 
-    {% endblock content %}
+        {% block content %}
+        {% comment %} tenho que usar isto no mais meter o block para ir buscar isto !! {% endcomment %} 
+        {% endblock content %}
     </main>
     {% include "recipes/partials/footer.html" %}
 </body>
