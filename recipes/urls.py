@@ -9,8 +9,11 @@ isto e um http request'''
 # def _home(request):
 #     return HttpResponse ('Home')
 '''devia retornar um http response'''
+#posts:post isto da para fazer os urls assim
+app_name = 'Posts'
+
 
 urlpatterns= [
-    path('',views.home),
-    path('postview/<int:id>/', views.postview)
+    path('',views.home, name="Home"), # implementar url correctas
+    path('postview/<int:id>/', views.postview, name="Post")
 ]
