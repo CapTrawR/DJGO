@@ -16,6 +16,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf.urls.static import static
+from django.conf import settings
 # aqui temos que fazer o import da app , nao esquecer de usar o include para os path
 
 '''fazer  o http response'''
@@ -30,3 +32,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('recipes.urls')) #/ começa com o que esta no home assim porque começa vaizo!!
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # Configurar as patterns para meter as imagens a dar no sitio certo fora do app e dentro do projeto

@@ -6,6 +6,9 @@ from django.db import models
 class Category(models.Model):
     name = models.CharField(max_length=65)
 
+    def __str__(self):
+        return self.name # isto em admin em vez de mostrar a categoria object 1 vai mostrar o nome que metemos la
+
 # Create your models here.
 class Post(models.Model):
     title = models.CharField(max_length=65)

@@ -125,6 +125,9 @@ STATICFILES_DIRS = [
     BASE_DIR/'base_static', #isto e feito para o base static tem que se meter base dir porque esta no root do projeto
 ]
 
+MEDIA_URL = '/media/' # Configurar as patterns para meter as imagens a dar no sitio certo fora do app e dentro do projeto
+MEDIA_ROOT = BASE_DIR /'media' # Configurar as patterns para meter as imagens a dar no sitio certo fora do app e dentro do projeto
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
