@@ -15,5 +15,7 @@ app_name = 'Posts'
 
 urlpatterns= [
     path('',views.home, name="Home"), # implementar url correctas
-    path('postview/<int:id>/', views.postview, name="Post")
+    path('Posts/category/<int:category_id>/', views.category, name="category"),
+    path('Posts/<int:id>/', views.postview, name="Post"),
+   
 ]
