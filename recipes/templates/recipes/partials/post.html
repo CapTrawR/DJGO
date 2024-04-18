@@ -1,9 +1,11 @@
 <div class="post postagem-list-item">
+    {% if post.cover %} {% comment %} caso tenha cover faz isto se nao faz outra coisa {% endcomment %}
     <div class="postagem-cover">
         <a href="{%url 'Posts:Post' post.id %}"> 
-        <img src="{{post.cover.url}}" alt="temp">
-    </a>
+            <img src="{{post.cover.url}}" alt="temp">
+        </a>
     </div>
+    {% endif %}
     <div class="postagem-title-conteiner">
         <h2 class="postagem-title"> 
             <a href="{%url 'Posts:Post' post.id %}"> 
@@ -15,14 +17,18 @@
     <div class="postagem-author">
         <span class="postagem-author-item">
             <i class="fas fa-user"></i>
+            {% if post.author.first_name %} {% comment %} aqui metemos a condicao para o caso o autor nao tenha metido o nome fica o username {% endcomment %}
             {{post.author.first_name}} {{post.author.last_name}}
+            {% else  %}
+            {{post.author.username}}
+            {% endif %}
         </span>
         <span class="postagem-author-item">
             <i class="fas fa-calendar-alt"></i>
             {{post.created_at|date:'d/m/Y'}} às {{post.created_at|date:'H:i'}}
         </span>
         <span class="postagem-author-item">
-            <a href="/recipes/category/cafe-da-manha/">
+            <a href="{% url 'Posts:category' post.category.id %}">
                 <i class="fas fa-layer-group"></i>
                 <span>{{post.category.name}}</span>
             </a>
