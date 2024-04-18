@@ -33,4 +33,5 @@ urlpatterns = [
     path('', include('recipes.urls')) #/ começa com o que esta no home assim porque começa vaizo!!
 ]
 
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT) # Configurar as patterns para meter as imagens a dar no sitio certo fora do app e dentro do projeto
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT) # Configurar as patterns para meter as imagens a dar no sitio certo fora do app e dentro do projeto

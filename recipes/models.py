@@ -30,4 +30,5 @@ class Post(models.Model):
         User, on_delete = models.SET_NULL, null=True
     )
 
-
+    def __str__(self): #aqui faz como que mostre o titulo do post
+        return self.title 
