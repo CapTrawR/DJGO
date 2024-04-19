@@ -1,5 +1,4 @@
-from django.shortcuts import render
-from utils.posts.factory import make_posts
+from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Post
 
 #from django.shortcuts import render -> este import vai nos ajudar com o html temos que usar
@@ -9,22 +8,28 @@ from .models import Post
 #preciso faazer uma pasta chamada template
 
 def home(request):
-    posts = Post.objects.all().order_by('-id') # aqui e como eu vou buscar o que eu tenho na BD
+    posts = Post.objects.filter(is_published = True).order_by('-id') # aqui e como eu vou buscar o que eu tenho na BD a fazer is_published = True estou a ir buscar a bd bollean
     return render(request, 'recipes/pages/home.html', context={
         'posts': posts,
     })
 
 # def sobre(request):
-#     return HttpResponse ('SOBRE') isto era o que tinhamos antes de explicacao
+# esta e a parte das categorias e um filtro por categoria 
 def category(request,category_id):
-    posts = Post.objects.filter(category__id = category_id).order_by('-id') # aqui e como eu vou buscar o que eu tenho na BD
-    return render(request, 'recipes/pages/home.html', context={
+    posts = get_list_or_404(
+        Post.objects.filter(
+            category__id = category_id, is_published = True,
+        ).order_by('-id'))
+
+    return render(request, 'recipes/pages/category.html', context={
         'posts': posts,
+        'title':f'{posts[0].category.name} - Category |'
     })
 
 #nova view para outra pagina
 def postview(request, id):
+    post = get_object_or_404(Post,id = id, is_published = True,)
     return render(request, 'recipes/pages/post-view.html', context={
-        'post': make_posts(),
+        'post': post,
         'is_detail_page': True,
     })

@@ -25,7 +25,7 @@ class Post(models.Model):
     is_published = models.BooleanField(default=False)
     cover = models.ImageField(upload_to='recipes/covers/%Y/%m%d/', blank = True, default = '' ) # aqui nao precisa de ter imagem acossiada
     category = models.ForeignKey(
-        Category, on_delete = models.SET_NULL, null=True
+        Category, on_delete = models.SET_NULL, null=True, blank=True, default=None,
     )
     def __str__(self):
         return self.title # admin em vez de mostrar a categoria object 1 vai mostrar o title

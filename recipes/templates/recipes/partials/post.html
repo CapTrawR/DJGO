@@ -15,24 +15,30 @@
     </div>
 
     <div class="postagem-author">
+        {% if post.author is not None%}
         <span class="postagem-author-item">
             <i class="fas fa-user"></i>
-            {% if post.author.first_name %} {% comment %} aqui metemos a condicao para o caso o autor nao tenha metido o nome fica o username {% endcomment %}
-            {{post.author.first_name}} {{post.author.last_name}}
-            {% else  %}
-            {{post.author.username}}
-            {% endif %}
+                {% if post.author.first_name %} {% comment %} aqui metemos a condicao para o caso o autor nao tenha metido o nome fica o username {% endcomment %}
+                    {{post.author.first_name}} {{post.author.last_name}}
+                {% else  %}
+                    {{post.author.username}}
+                {% endif %}
+            {% else %}
+                Desconhecido
         </span>
+        {% endif %}
         <span class="postagem-author-item">
             <i class="fas fa-calendar-alt"></i>
             {{post.created_at|date:'d/m/Y'}} às {{post.created_at|date:'H:i'}}
         </span>
+        {% if post.category is not None %} {% comment " se nao for none a categoria faz isto " %}{% endcomment %}
         <span class="postagem-author-item">
             <a href="{% url 'Posts:category' post.category.id %}">
                 <i class="fas fa-layer-group"></i>
                 <span>{{post.category.name}}</span>
             </a>
         </span>
+        {% endif %}
     </div>
     <div class="postagem-content">
         <p>{{post.description}}</p>
@@ -41,13 +47,13 @@
         <div class="postagem-meta postagem-nome">
             <h3 class="postagem-meta-title"><i class="fa fa-stethoscope" aria-hidden="true"></i> Dr.</h3>
             <div class="postagem-meta-text">
-                {{post.author.first_name}}
+                {{post.first_name}}
             </div>
         </div>
         <div class="postagem-meta postagem-gender">
             <h3 class="postagem-meta-title"><i class="fa fa-venus-mars" aria-hidden="true"></i></i> Especialidade </h3>
             <div class="postagem-meta-text">
-                {{post.especialidade}} 
+                {{post.speciality}} 
             </div>
         </div>
     </div>
@@ -62,11 +68,13 @@
     {% endif %} {% comment "" %} acaba o if {% endcomment %}
 
     {% if is_detail_page is True %}
-
         <div class="post-steps">
-            <span> {{post.preparation_steps|linebreaksbr}} </span>
+            {% if post_steps_is_html is True %}
+                {{post.post_field|safe}} 
+            {% else %}
+                {{post.post_field|linebreaksbr}} 
+            {% endif %}
         </div>
-
     {% endif %}
 
 </div>

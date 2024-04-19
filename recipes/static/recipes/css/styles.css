@@ -258,8 +258,8 @@
            /* aqui e para a pagina quando expandimos / damos outras scales*/
          
            .main-content-detail .postagem-list-item{
-            max-width: 84rem !important;
-            margin: 0 auto !important;
+            max-width: 84rem;
+            margin: 0 auto;
           }
   
           .main-content-detail .postagem-list-item:hover{
@@ -268,7 +268,14 @@
           }
 
           .post-steps{
+            max-width: 84rem;
+            height: fit-content;
             padding: var(--spacing-gutter-medium);
+            font: var(--font-primary);
+            width: fit-content;
+            margin: auto;
+            display: flex;
+            flex-flow: row wrap;
           }
         /* footer de baixo */
         
@@ -290,4 +297,33 @@
 
         .main-footer a:hover {
             filter: brightness(.8);
+        }
+
+        .post-steps h1,
+        .post-steps h2,
+        .post-steps h3,
+        .post-steps h4,
+        .post-steps h5,
+        .post-steps h6,
+        .post-steps p,
+        .post-steps pre {
+            margin: 2rem 0;
+        }
+
+        .post-steps ol,
+        .post-steps ul {
+        margin: 2rem;
+        padding: 0 2rem;
+        }
+
+        .center{
+            text-align: center;
+            justify-content: center;
+        }
+        
+        .m-x{
+            margin: 0 var(--spacing-gutter-medium);
+        }
+        .m-y{
+            margin: var(--spacing-gutter-medium);
         }
