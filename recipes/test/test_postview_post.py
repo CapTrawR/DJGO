@@ -2,15 +2,18 @@ from django.test import TestCase
 from django.urls import reverse, resolve
 from recipes import views
 from recipes.models import Category, Post, User
+from .test_Post_Base import PostTestBase
 
 #testes unitarios
 #class de testes para depois fazer as funcoes
 #testar para ver se o home esta a ser passado de views
-class PostViewsTest(TestCase):
+class PostViewsTest(PostTestBase):
+#set up
 # testar home View
     def test_post_home_views_is_correct(self):
         view = resolve(reverse('Posts:Home'))
         self.assertIs(view.func, views.home)
+#tearDown
 
     #testar se a resposta esta ok
     def test_post_home_return_status_code_200_ok(self):
@@ -24,41 +27,17 @@ class PostViewsTest(TestCase):
 
 #testas se o texto not found aparece
     def test_post_home_shows_no_post_found_if_no_recipes(self):
+        Post.objects.get(pk=1).delete()
         response = self.client.get(reverse('Posts:Home'))
         self.assertIn(
             '<h1>No Posts found here 😩😩😩</h1>',
             response.content.decode('utf-8'))
 
     def test_post_home_template_loads_posts(self):
-        category = Category.objects.create(name='category')
-        author = User.objects.create_user(
-            first_name = "user",
-            last_name = "name",
-            username="username",
-            password="123456",
-            email="username@gmail.com",
-        )
-        post = Post.objects.create(
-            category= category,
-            author = author,
-            title = 'Post Title',
-            description = 'Post Description',
-            slug = 'Post- Slug',
-            first_name = 'firstname',
-            last_name = 'lastname',
-            speciality = 'speciality',
-            post_field = 'postfield',
-            post_field_is_html = False,
-            created_at = 'criado a ',
-            updated_at = 'update at',
-            is_published = True,
-        )
         response = self.client.get(reverse('Posts:Home')) # executar a url retornou uma resposta 
         response_posts= response.context['posts']
         content = response.content.decode('utf-8') # converter para string
         self.assertIn('Post Title', content)# retorna o conteudo
-
-
         self.assertEqual(response_posts.first().title,'Post Title')
 
 #testar para ver se a categoria esta a ser bem passada
