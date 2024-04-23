@@ -11,14 +11,11 @@ class PostTestBase(TestCase):
         return Category.objects.create(name = name)
     
     def make_author(self,
-            first_name = "user",
-            last_name = "name",
             username="username",
             password="123456",
-            email="username@gmail.com",   ):
+            email="username@gmail.com",  
+            ):
         return User.objects.create_user(
-            first_name = first_name,
-            last_name = last_name,
             username = username,
             password = password,
             email= email,
@@ -31,13 +28,9 @@ class PostTestBase(TestCase):
         title = 'Post Title',
         description = 'Post Description',
         slug = 'Post Slug',
-        first_name = 'firstname',
-        last_name = 'lastname',
         speciality = 'speciality',
         post_field = 'postfield',
         post_field_is_html = False,
-        created_at = 'criado a ',
-        updated_at = 'update at',
         is_published = True,
     ):
         if category_data is None:
@@ -52,13 +45,9 @@ class PostTestBase(TestCase):
         title = title,
         description = description,
         slug = slug ,
-        first_name = first_name,
-        last_name = last_name,
         speciality = speciality,
         post_field = post_field ,
         post_field_is_html = post_field_is_html,
-        created_at = created_at,
-        updated_at = updated_at,
         is_published = is_published ,
         )
         
