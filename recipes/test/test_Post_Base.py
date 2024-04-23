@@ -10,16 +10,22 @@ class PostTestBase(TestCase):
     def make_category(self,name='category'):
         return Category.objects.create(name = name)
     
-    def make_author(self,
-            username="username",
-            password="123456",
-            email="username@gmail.com",  
-            ):
+    def make_author(
+        self,
+        first_name='user',
+        last_name='name',
+        username='username',
+        password='123456',
+        email='username@email.com',
+    ):
         return User.objects.create_user(
-            username = username,
-            password = password,
-            email= email,
+            first_name=first_name,
+            last_name=last_name,
+            username=username,
+            password=password,
+            email=email,
         )
+    
     
     def make_post(
         self,
@@ -41,7 +47,7 @@ class PostTestBase(TestCase):
 
         return Post.objects.create(
         category = self.make_category(**category_data), # vai buscar tudo o que esta dentro do dicionario
-        author = self.make_author(**author_data),# vai buscar tudo o que esta dentro do dicionario
+        author =  self.make_author(**author_data),
         title = title,
         description = description,
         slug = slug ,
