@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Post
+from django.http.response import Http404
+
 
 #from django.shortcuts import render -> este import vai nos ajudar com o html temos que usar
 # tenho que fazer os imports necessarios para aqui de acordo com as funcoes
@@ -28,8 +30,18 @@ def category(request,category_id):
 
 #nova view para outra pagina
 def postview(request, id):
-    post = get_object_or_404(Post,id = id, is_published = True,)
+    posts = get_object_or_404(Post,id = id, is_published = True,)
     return render(request, 'recipes/pages/post-view.html', context={
-        'post': post,
+        'post': posts,
         'is_detail_page': True,
+    })
+
+def search(request):
+    search_term = request.GET.get('q', '').strip()  # este q e o que temos no html como variavel para search no input e o espaço strip corta os epaços do direito e esquerdo
+    
+    if not search_term:
+        raise Http404()
+    
+    return render(request, 'recipes/pages/search.html', {
+        'page_title': f'Search for "{search_term}" | ',
     })

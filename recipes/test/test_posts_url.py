@@ -17,3 +17,7 @@ class PostURLsTest(TestCase):
     def test_UrlPost_is_correct(self):
         url = reverse('Posts:Post', kwargs={'id':1})
         self.assertEqual(url,'/Posts/1/')
+
+    def test_post_search_url_is_correct(self):
+        url=reverse('Posts:search')
+        self.assertEqual(url,'/Posts/search/')

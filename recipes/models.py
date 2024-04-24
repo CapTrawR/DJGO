@@ -14,7 +14,7 @@ class Category(models.Model):
 class Post(models.Model):
     title = models.CharField(max_length=65)
     description = models.CharField(max_length=165)
-    slug = models.SlugField(unique= True)
+    slug = models.SlugField(unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
     speciality = models.CharField(max_length=30)
