@@ -16,7 +16,6 @@ class PostModelTest(PostTestBase):
             author_data = self.make_author(username='UserNew'),
             title = 'Post Title',
             description = 'Post Description',
-            slug = 'Post-Slug',
             speciality = 'speciality',
             post_field = 'postfield',    
         )
@@ -27,7 +26,7 @@ class PostModelTest(PostTestBase):
     @parameterized.expand([
         ('title', 65),
         ('description', 165),
-        ('speciality', 65),
+        ('speciality', 30),
         ('post_field', 3000),
     ])
 
@@ -43,3 +42,10 @@ class PostModelTest(PostTestBase):
     def test_post_is_published_is_false_by_default(self):
         post = self.make_post_no_defaults()
         self.assertFalse( post.is_published, msg='Post field is published false')
+
+
+    def test_post_string_representation(self):
+        self.post.title = 'testing representation'
+        self.post.full_clean() # limpo o que tem la 
+        self.post.save()# garanto que grava
+        self.assertEqual(str(self.recipe), 'testing representation')

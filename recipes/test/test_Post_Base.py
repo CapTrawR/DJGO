@@ -3,7 +3,6 @@ from recipes.models import Category, Post, User
 
 class PostTestBase(TestCase):
     def setUp(self) -> None:
-        self.make_category()
         self.make_post()
         return super().setUp()
     
@@ -30,15 +29,15 @@ class PostTestBase(TestCase):
     
     def make_post(
         self,
-        category_data = None,
-        author_data = None,
-        title = 'Post Title',
-        description = 'Post Description',
-        slug = 'Post Slug',
-        speciality = 'speciality',
-        post_field = 'postfield',
-        post_field_is_html = False,
-        is_published = True,
+        category_data=None,
+        author_data=None,
+        title='Post Title',
+        description='Post Description',
+        slug='Post-Slug',
+        speciality='speciality',
+        post_field='postfield',
+        post_field_is_html=False,
+        is_published=True,
     ):
         if category_data is None:
             category_data = {}
@@ -47,7 +46,7 @@ class PostTestBase(TestCase):
             author_data ={}
 
         return Post.objects.create(
-        category = self.make_category(**category_data), # vai buscar tudo o que esta dentro do dicionario
+        category = self.make_category(**category_data),  # vai buscar tudo o que esta dentro do dicionario
         author =  self.make_author(**author_data),
         title = title,
         description = description,
