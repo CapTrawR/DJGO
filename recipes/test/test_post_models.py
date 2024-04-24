@@ -16,7 +16,7 @@ class PostModelTest(PostTestBase):
             author_data = self.make_author(username='UserNew'),
             title = 'Post Title',
             description = 'Post Description',
-            slug = 'Post Slug',
+            slug = 'Post-Slug',
             speciality = 'speciality',
             post_field = 'postfield',    
         )
@@ -27,8 +27,8 @@ class PostModelTest(PostTestBase):
     @parameterized.expand([
         ('title', 65),
         ('description', 165),
-        ('preparation_time_unit', 65),
-        ('servings_unit', 65),
+        ('speciality', 65),
+        ('post_field', 3000),
     ])
 
     def test_post_fileds_max_lenght(self, field, max_length):

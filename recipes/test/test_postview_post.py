@@ -70,11 +70,8 @@ class PostViewsTest(PostTestBase):
     def test_post_home_template_dont_load_posts_not_published(self):
         """Test recipe is_published False dont show"""
         # Need a recipe for this test
-        self.make_post(title="asasdsadsad",is_published=False)
-        self.make_author.save() 
-
+        self.make_post()
         response = self.client.get(reverse('Posts:Home'))
-
         # Check if one recipe exists
         self.assertIn(
             '<h1>No Posts found here 😩😩😩 </h1>',
@@ -85,15 +82,12 @@ class PostViewsTest(PostTestBase):
         """Test recipe is_published False dont show"""
         # Need a post for this test
         self.make_post()
-
         response = self.client.get(reverse('Posts:Post', kwargs={'id':1}))
-
         # Check if one recipe exists
         self.assertEqual(response.status_code, 404)
 
     def test_post_detail_template_dont_load_post_nt_published(self):
         post = self.make_post(is_published=False)
-
         response = self.client.get(
             reverse(
                 'Posts:Post',

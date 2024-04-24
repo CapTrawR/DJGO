@@ -27,9 +27,6 @@ class Post(models.Model):
     category = models.ForeignKey(
         Category, on_delete = models.SET_NULL, null=True, blank=True, default=None,
     )
-    def __str__(self):
-        return self.title # admin em vez de mostrar a categoria object 1 vai mostrar o title
-    
     author = models.ForeignKey(
         User, on_delete = models.SET_NULL, null=True
     )

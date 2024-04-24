@@ -3,6 +3,7 @@ from recipes.models import Category, Post, User
 
 class PostTestBase(TestCase):
     def setUp(self) -> None:
+        self.make_category()
         self.make_post()
         return super().setUp()
     
