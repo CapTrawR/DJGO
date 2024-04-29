@@ -35,3 +35,29 @@ class PostSearchViewsTest(PostTestBase):
         self.assertIn(
             'Search for &quot;&lt;Teste&gt;&quot;',
             response.content.decode('utf-8'))
+        
+    def test_post_search_term_can_find_test(self):
+        title1 = 'This is post one'
+        title2 = 'This is post 2'
+
+        post1  = self.make_post(
+            slug ='one',
+            title=(title1),
+            author_data={'username':'one'},
+        )
+
+        post2  = self.make_post(
+            slug ='two',
+            title=(title2),
+            author_data={'username':'two'},
+        )
+        search_url = reverse ('Posts:search'),
+        response1 = self.client.get(f'{search_url} ?q={title1}'),
+        response2 = self.client.get(f'{search_url} ?q={title2}'),
+        response_both = self.client.get(f'{search_url} ?q=this'),
+
+        self.assertIn(post1, response1.context['Posts'])
+        self.assertIn(post2, response2.content ['Posts'])
+        self.assertIn(post1, post2, response_both.content ['Posts'])
+    
+    

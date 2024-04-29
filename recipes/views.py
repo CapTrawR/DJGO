@@ -2,6 +2,10 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Post
 from django.http.response import Http404
 from django.db.models import Q # quero and ou or 
+from django.core.paginator import Paginator
+from utils.pagination.pagination import make_pagination_range, make_pagination
+
+PER_PAGES = 9
 
 #from django.shortcuts import render -> este import vai nos ajudar com o html temos que usar
 # tenho que fazer os imports necessarios para aqui de acordo com as funcoes
@@ -11,8 +15,12 @@ from django.db.models import Q # quero and ou or
 
 def home(request):
     posts = Post.objects.filter(is_published = True).order_by('-id') # aqui e como eu vou buscar o que eu tenho na BD a fazer is_published = True estou a ir buscar a bd bollean
+    
+    page_object, pagination_range = make_pagination(request,posts,PER_PAGES)
+    
     return render(request, 'recipes/pages/home.html', context={
-        'posts': posts,
+        'posts': page_object,
+        'pagination_range' : pagination_range,
     })
 
 # def sobre(request):
@@ -22,9 +30,12 @@ def category(request,category_id):
         Post.objects.filter(
             category__id = category_id, is_published = True,
         ).order_by('-id'))
+    
+    page_object, pagination_range = make_pagination(request,posts,PER_PAGES)
 
     return render(request, 'recipes/pages/category.html', context={
-        'posts': posts,
+        'posts': page_object,
+        'pagination_range': pagination_range,
         'title':f'{posts[0].category.name} - Category |'
     })
 
@@ -44,12 +55,19 @@ def search(request):
     
     posts = Post.objects.filter(
         # isto faz a procura com as letras e nao examtamente igual e um like em sql o i faz com que nao seja case sensitive
-        Q(title__icontains = search_term) | 
-        Q(description__icontains = search_term), # faz o mesmo para descricao
+        Q(
+            Q(title__icontains = search_term) | 
+            Q(description__icontains = search_term), # faz o mesmo para descricao
+        ),
+        is_published = True
     ).order_by('-id')
+    
+    page_object, pagination_range = make_pagination(request,posts,PER_PAGES)
     
     return render(request, 'recipes/pages/search.html', {
         'page_title': f'Search for "{search_term}" | ',
         'search_term': search_term,
-        'posts':posts,
+        'pagination_range': pagination_range,
+        'posts':page_object,
+        'additional_url_query': f'&q={search_term}',
     })
