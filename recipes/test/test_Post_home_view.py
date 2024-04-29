@@ -7,7 +7,7 @@ from .test_Post_Base import PostTestBase
 #testes unitarios
 #class de testes para depois fazer as funcoes
 #testar para ver se o home esta a ser passado de views
-class PostViewHomeTest(PostTestBase):
+class PostHomeViewTest(PostTestBase):
 #set up
 # testar home View
     def test_post_home_views_is_correct(self):
@@ -41,4 +41,16 @@ class PostViewHomeTest(PostTestBase):
         content = response.content.decode('utf-8') # converter para string
         self.assertIn('Post Title', content)# retorna o conteudo
         self.assertEqual(response_posts.first().title,'Post Title')
+
+    #nao esta a dar 
+    def test_post_home_template_dont_load_posts_not_published(self):
+        """Test recipe is_published False dont show"""
+        # Need a recipe for this test
+        self.make_post()
+        response = self.client.get(reverse('Posts:Home'))
+        # Check if one recipe exists
+        self.assertIn(
+            '<h1>No Posts found here 😩😩😩 </h1>',
+            response.content.decode('utf-8')
+        )
 

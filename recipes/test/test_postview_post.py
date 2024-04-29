@@ -41,6 +41,18 @@ class PostViewsTest(PostTestBase):
         self.assertIn('Post Title', content)# retorna o conteudo
         self.assertEqual(response_posts.first().title,'Post Title')
 
+    #nao esta a dar 
+    def test_post_home_template_dont_load_posts_not_published(self):
+        """Test recipe is_published False dont show"""
+        # Need a recipe for this test
+        self.make_post()
+        response = self.client.get(reverse('Posts:Home'))
+        # Check if one recipe exists
+        self.assertIn(
+            '<h1>No Posts found here 😩😩😩 </h1>',
+            response.content.decode('utf-8')
+        )
+
 #testar para ver se a categoria esta a ser bem passada
     def test_post_view_category_is_correct(self):
         view = resolve(reverse('Posts:category', kwargs={'category_id':1}))
@@ -65,17 +77,7 @@ class PostViewsTest(PostTestBase):
 
 
 
-#nao esta a dar 
-    def test_post_home_template_dont_load_posts_not_published(self):
-        """Test recipe is_published False dont show"""
-        # Need a recipe for this test
-        self.make_post()
-        response = self.client.get(reverse('Posts:Home'))
-        # Check if one recipe exists
-        self.assertIn(
-            '<h1>No Posts found here 😩😩😩 </h1>',
-            response.content.decode('utf-8')
-        )
+
 # nao esta a dar para testar as views =/
     def test_post_category_template_dont_load_posts_not_published(self):
         """Test recipe is_published False dont show"""

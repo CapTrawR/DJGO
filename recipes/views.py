@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Post
 from django.http.response import Http404
-
+from django.db.models import Q # quero and ou or 
 
 #from django.shortcuts import render -> este import vai nos ajudar com o html temos que usar
 # tenho que fazer os imports necessarios para aqui de acordo com as funcoes
@@ -42,6 +42,14 @@ def search(request):
     if not search_term:
         raise Http404()
     
+    posts = Post.objects.filter(
+        # isto faz a procura com as letras e nao examtamente igual e um like em sql o i faz com que nao seja case sensitive
+        Q(title__icontains = search_term) | 
+        Q(description__icontains = search_term), # faz o mesmo para descricao
+    ).order_by('-id')
+    
     return render(request, 'recipes/pages/search.html', {
         'page_title': f'Search for "{search_term}" | ',
+        'search_term': search_term,
+        'posts':posts,
     })
