@@ -5,7 +5,9 @@ from django.db.models import Q # quero and ou or
 from django.core.paginator import Paginator
 from utils.pagination.pagination import make_pagination_range, make_pagination
 
-PER_PAGES = 9
+import os
+
+PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 
 #from django.shortcuts import render -> este import vai nos ajudar com o html temos que usar
 # tenho que fazer os imports necessarios para aqui de acordo com as funcoes
@@ -16,7 +18,7 @@ PER_PAGES = 9
 def home(request):
     posts = Post.objects.filter(is_published = True).order_by('-id') # aqui e como eu vou buscar o que eu tenho na BD a fazer is_published = True estou a ir buscar a bd bollean
     
-    page_object, pagination_range = make_pagination(request,posts,PER_PAGES)
+    page_object, pagination_range = make_pagination(request,posts,PER_PAGE)
     
     return render(request, 'recipes/pages/home.html', context={
         'posts': page_object,
@@ -31,7 +33,7 @@ def category(request,category_id):
             category__id = category_id, is_published = True,
         ).order_by('-id'))
     
-    page_object, pagination_range = make_pagination(request,posts,PER_PAGES)
+    page_object, pagination_range = make_pagination(request,posts,PER_PAGE)
 
     return render(request, 'recipes/pages/category.html', context={
         'posts': page_object,
@@ -62,7 +64,7 @@ def search(request):
         is_published = True
     ).order_by('-id')
     
-    page_object, pagination_range = make_pagination(request,posts,PER_PAGES)
+    page_object, pagination_range = make_pagination(request,posts,PER_PAGE)
     
     return render(request, 'recipes/pages/search.html', {
         'page_title': f'Search for "{search_term}" | ',

@@ -3,6 +3,7 @@ from django.urls import reverse, resolve
 from recipes import views
 from recipes.models import Post
 from .test_Post_Base import PostTestBase
+from unittest.mock import patch
 
 #testes unitarios
 #class de testes para depois fazer as funcoes
@@ -54,3 +55,17 @@ class PostHomeViewTest(PostTestBase):
             response.content.decode('utf-8')
         )
 
+    def test_post_home_is_paginated(self):
+        for i in range(9):
+            kwargs = {'slug': f'r{i}', 'author_data': {'username': f'u{i}'}}
+            self.make_post(**kwargs)
+                
+        with patch('posts.views.PER_PAGE', new=3):
+            response = self.client.get(reverse('Posts:Home'))
+            posts = response.context['posts']
+            paginator = posts.paginator
+
+            self.assertEqual(paginator.num_pages, 3)
+            self.assertEqual(len(paginator.get_page(1)), 3)
+            self.assertEqual(len(paginator.get_page(2)), 3)
+            self.assertEqual(len(paginator.get_page(3)), 2)
