@@ -2,8 +2,7 @@ from django.shortcuts import render, get_list_or_404, get_object_or_404
 from .models import Post
 from django.http.response import Http404
 from django.db.models import Q # quero and ou or 
-from django.core.paginator import Paginator
-from utils.pagination.pagination import make_pagination_range, make_pagination
+from utils.pagination.pagination import make_pagination
 
 import os
 
@@ -19,7 +18,7 @@ def home(request):
     posts = Post.objects.filter(is_published = True).order_by('-id') # aqui e como eu vou buscar o que eu tenho na BD a fazer is_published = True estou a ir buscar a bd bollean
     
     page_object, pagination_range = make_pagination(request,posts,PER_PAGE)
-    
+
     return render(request, 'recipes/pages/home.html', context={
         'posts': page_object,
         'pagination_range' : pagination_range,
@@ -63,7 +62,7 @@ def search(request):
         ),
         is_published = True
     ).order_by('-id')
-    
+
     page_object, pagination_range = make_pagination(request,posts,PER_PAGE)
     
     return render(request, 'recipes/pages/search.html', {
