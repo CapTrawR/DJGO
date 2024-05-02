@@ -30,7 +30,8 @@ isto e um http request'''
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('recipes.urls')) #/ começa com o que esta no home assim porque começa vaizo!!
+    path('', include('recipes.urls')), #/ começa com o que esta no home assim porque começa vaizo!!
+    path('authors/', include('authors.urls')),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
