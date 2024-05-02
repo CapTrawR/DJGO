@@ -149,6 +149,7 @@
 
         .main-content{
             padding-top: 0;
+            padding: 1.5rem
             
         }
 
@@ -290,6 +291,7 @@
 
 
         .main-footer a {
+            float: left;
             color: var(--color-white);
             text-decoration: none;
             transition: all 300ms ease-in-out;
@@ -315,11 +317,6 @@
         .post-steps ul {
         margin: 2rem;
         padding: 0 2rem;
-        }
-
-        .center{
-            text-align: center;
-            justify-content: center;
         }
         
         .m-x{
@@ -352,6 +349,53 @@
 
         .pagination .page-current{
             background: var(--color-primary-dark);
+        }
+
+        /*FORMS*/
+        .form-content{
+            max-width: 64rem;
+            margin: 0 auto;
+            margin-bottom: var(--spacing-gutter-medium);
+        }
+
+        .form-content-grid{
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1 fr));
+            gap:calc(var(--spacing-gutter-medium)/2)
+        }
+
+        .form-content label .form-content .help-text .errorlist{
+            display: block;
+            margin: 0.5rem 0;
+            font-size: 1.4rem;
+            list-style-type: none;
+        }
+
+        .errorlist{
+            color: var(--color-error-dark);
+        }
+
+        .form-content input{
+            width: 100%;
+            padding: 1rem;
+            border-radius: .4rem;
+            border: 2px solid var(--color-primary-dark);
+        }
+
+        .form-group button{
+            align-items: center;
+            margin: auto;
+            display: flex;
+        }
+
+        .form-content button{
+            align-items: center;
+            margin: auto;
+            padding: 1rem 2rem;
+            border: none;
+            background:var(--color-primary-dark);
+            color:var(--color-white);
+            border-radius: .4rem;
         }
 
         /*MESSAGES*/
@@ -406,7 +450,8 @@
           }
 
           @media (max-with: 600px){
-            .main-content-list{
+            .main-content-list
+            .form-content-grid{
                 display: grid; /* aqui fica a grid para separar*/
                 grid-template-columns: repeat(auto-fit, minmax(100%, 1fr));/*isto aqui e para ficar responsivo*/
                 gap:var(--spacing-gutter-large)
