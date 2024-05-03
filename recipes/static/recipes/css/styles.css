@@ -149,8 +149,6 @@
 
         .main-content{
             padding-top: 0;
-            padding: 1.5rem
-            
         }
 
         .main-content-list{
@@ -318,7 +316,16 @@
         margin: 2rem;
         padding: 0 2rem;
         }
-        
+
+        .center {
+            text-align: center;
+          }
+          
+          .left {
+            text-align: left;
+          }
+
+
         .m-x{
             margin: 0 var(--spacing-gutter-medium);
         }
@@ -358,13 +365,9 @@
             margin-bottom: var(--spacing-gutter-medium);
         }
 
-        .form-content-grid{
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(30rem, 1 fr));
-            gap:calc(var(--spacing-gutter-medium)/2)
-        }
-
-        .form-content label .form-content .help-text .errorlist{
+        .form-content label,
+        .form-content .help-text,
+        .errorlist{
             display: block;
             margin: 0.5rem 0;
             font-size: 1.4rem;
@@ -375,17 +378,30 @@
             color: var(--color-error-dark);
         }
 
-        .form-content input{
+        .form-content input,
+        .form-content textarea,
+        .form-content select
+        {
             width: 100%;
             padding: 1rem;
             border-radius: .4rem;
             border: 2px solid var(--color-primary-dark);
         }
 
+        .form-content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+            gap: calc(var(--spacing-gutter-medium) / 2) var(--spacing-gutter-medium);
+          }
+
         .form-group button{
             align-items: center;
             margin: auto;
             display: flex;
+        }
+
+        .form-group {
+            text-align: left;
         }
 
         .form-content button{
@@ -397,6 +413,24 @@
             color:var(--color-white);
             border-radius: .4rem;
         }
+
+        .inline-form {
+            display: inline;
+          }
+
+        .span-2 {
+            grid-column: span 2;
+          }
+          
+          .plaintext-button {
+            display: inline;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--color-primary);
+            font-size: 1.6rem;
+          }
+          
 
         /*MESSAGES*/
         .messages-conteiner{
