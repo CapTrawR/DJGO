@@ -47,11 +47,13 @@ class RegisterForm(forms.ModelForm):
             'at least 8 characters'
         ),
 
-        validators=[strong_password] # aqui obrigo a usar a funcao com o regex 
+        validators=[strong_password], # aqui obrigo a usar a funcao com o regex 
+        label='Password',
     )
     repeat_password = forms.CharField(
         required=True,
         widget=forms.PasswordInput(),
+        label='repeat_password',
         error_messages={
              'required': 'This field must not be empty!!',
         },
@@ -72,8 +74,6 @@ class RegisterForm(forms.ModelForm):
             'first_name': 'First Name',
             'last_name': 'Last Name',
             'email': 'E-mail',
-            'password': 'Password',
-            'username': 'Username',
         }
 
         help_texts={
@@ -118,30 +118,6 @@ class RegisterForm(forms.ModelForm):
         #     }),
 
        # }
-
-    #clean field especifico do campo para validacao do campo especifico
-    def clean_password(self):
-        data = self.cleaned_data.get('password')
-
-        if 'atenção' in data:
-            raise ValidationError(
-                'Não digite %(pipoca)s no campo password',
-                code='invalid',
-                params={'pipoca': '"atenção"'}
-            )
-
-        return data
-
-    def clean_first_name(self):
-        data = self.cleaned_data.get('first_name')
-
-        if 'John Doe' in data:
-            raise ValidationError(
-                'Não digite %(value)s no campo first name',
-                code='invalid',
-                params={'value': '"John Doe"'}
-            )
-        return data
     
 #metodo clean para validar o formulario como um todo quando um depende do outro
     def clean(self):
