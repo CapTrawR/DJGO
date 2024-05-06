@@ -119,6 +119,19 @@ class RegisterForm(forms.ModelForm):
 
        # }
     
+    #nao deixar usar o mesmo email 2 vezes
+    def clean_email(self):
+        email = self.cleaned_data.get('email', '')
+        exists = User.objects.filter(email = email).exists()
+
+        if exists:
+            raise ValidationError(
+                'This e-mail is already in use!!', code='invalid',
+                )
+        
+        return email
+
+
 #metodo clean para validar o formulario como um todo quando um depende do outro
     def clean(self):
         cleaned_data = super().clean()

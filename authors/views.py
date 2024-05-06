@@ -3,6 +3,8 @@ from .forms import RegisterForm
 from django.http import Http404
 from django.shortcuts import redirect
 from django.contrib import messages
+from django.urls import reverse
+
 
 # se alguem enviar o metodo post o navegador recebe como post passa para dentro do formolario se nao cria um novo
 def register_view(request):
@@ -10,6 +12,7 @@ def register_view(request):
     form = RegisterForm(register_form_data)
     return render(request, 'authors/pages/register_view.html',{
       'form': form,
+      'form_action': reverse('authors:create'),
    })
 
 # aqui retorna-nos para o form com os respectivos erros 
