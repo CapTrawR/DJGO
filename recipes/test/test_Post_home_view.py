@@ -69,3 +69,26 @@ class PostHomeViewTest(PostTestBase):
             self.assertEqual(len(paginator.get_page(1)), 3)
             self.assertEqual(len(paginator.get_page(2)), 3)
             self.assertEqual(len(paginator.get_page(3)), 2)
+
+    # para ver se a view chama pagination incorrecta        
+    def test_invalid_page_query_uses_page_one(self):
+        for i in range(8):
+            kwargs = {'slug': f'r{i}', 'author_data': {'username': f'u{i}'}}
+            self.make_post(**kwargs)
+
+        with patch('posts.views.PER_PAGE', new=3):
+            response = self.client.get(reverse('Posts:Home') + '?page=12A')
+            self.assertEqual(
+                response.context['posts'].number,
+                1
+            )
+            response = self.client.get(reverse('Posts:Home') + '?page=2')
+            self.assertEqual(
+                response.context['posts'].number,
+                2
+            )
+            response = self.client.get(reverse('Posts:Home') + '?page=3')
+            self.assertEqual(
+                response.context['posts'].number,
+                3
+            )

@@ -27,7 +27,7 @@ class RegisterForm(forms.ModelForm):
    
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        add_placeholder(self.fields['username'], 'Your username')
+        add_placeholder(self.fields['username'], 'Your Username')
         add_placeholder(self.fields['email'], 'Your e-mail')
         add_placeholder(self.fields['first_name'], 'Ex.: John')
         add_placeholder(self.fields['last_name'], 'Ex.: Doe')
@@ -35,6 +35,34 @@ class RegisterForm(forms.ModelForm):
         add_placeholder(self.fields['repeat_password'], 'Repeat your password')
         add_attr(self.fields['username'], 'css', 'a-css-class')
    
+    username = forms.CharField(
+        required=True,
+        label='Username',
+        help_text='This field is mandatory! 150 characters or less' 
+            'Letters, numbers and @/./+/-/_ only.!!',
+        error_messages={
+            'required': 'This field must not be empty!!',
+            'min_length': 'Username must have at least 4 character',
+            'max_length': 'Username must have less then 150 characters',
+        },
+        min_length=4, max_length=150,
+   )
+    first_name = forms.CharField(
+        error_messages={'required':'Write your first name'},
+        required=True,
+        label='First Name'
+   )
+    last_name = forms.CharField(
+       error_messages={'required':'Write your last name'},
+       required=True,
+       label='Last Name'
+   )
+    email = forms.EmailField(
+       error_messages={'required':'Email must be valid.'},
+       required=True,
+       label='E-mail',
+       help_text='The e-mail must be valid.',
+   )
     password = forms.CharField(
         required=True,
         widget=forms.PasswordInput(),
@@ -53,7 +81,7 @@ class RegisterForm(forms.ModelForm):
     repeat_password = forms.CharField(
         required=True,
         widget=forms.PasswordInput(),
-        label='repeat_password',
+        label='Repeat Password',
         error_messages={
              'required': 'This field must not be empty!!',
         },
@@ -67,34 +95,6 @@ class RegisterForm(forms.ModelForm):
             'email',
             'password',
         ]
-
-        #dar outros nomes ao labels
-        labels = {
-            'username': 'Username',
-            'first_name': 'First Name',
-            'last_name': 'Last Name',
-            'email': 'E-mail',
-        }
-
-        help_texts={
-            'email': 'The e-mail must be valid!!',
-            'username': 'This field is mandatory! 150 characters or less. Letters, numbers and @/./+/-/_ only.!!',
-        }
-
-        error_messages={
-        'username':{
-            'required': 'This field must not be empty!!',
-            },
-
-        'email':{
-            'required': 'The e-mail must be valid!!',
-            }, # mesmo a mensagem de erro sendo em ingles template nao assume
-
-        'password':{
-            'required': 'This field must not be empty!!',
-            },
-
-        }
 
         # widgets = {
         #     'first_name': forms.TextInput(attrs={
