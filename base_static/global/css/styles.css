@@ -365,6 +365,23 @@
             margin-bottom: var(--spacing-gutter-medium);
         }
 
+        .form-sentence{
+            padding: 0.7rem;
+        }
+
+        .inline-form{
+            display: inline;
+        }
+
+        .plaintext_button{
+            display: inline;
+            border: none;
+            background: none;
+            cursor: pointer;
+            color: var(--color-primary);
+            font-size: 1.6rem;
+        }
+
         .form-content label,
         .form-content .help-text,
         .errorlist{
