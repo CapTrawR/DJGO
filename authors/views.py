@@ -53,7 +53,6 @@ def login_create(request):
     
 
     form = LoginForm(request.POST)
-    login_url= reverse('authors:login')
 
     if form.is_valid():
         authenticated_user = authenticate(
@@ -70,7 +69,7 @@ def login_create(request):
         messages.error(request, 'Invalid Username our Password')
         
 
-    return redirect(login_url)
+    return redirect(reverse('authors:dashboard'))
 
 #uma pessoa que nao esta logada nao pode ter acesso a pagina temos que usar o login decorated
 #funcao do logout cuidado para nao dar os mesmo nomes! ficamos com erros de recursao!!
@@ -87,3 +86,7 @@ def logout_view(request):
     
     logout(request)
     return redirect(reverse('authors:login'))
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard(request):
+    return render(request, 'authors/pages/dashboard.html')

@@ -365,8 +365,8 @@
             margin-bottom: var(--spacing-gutter-medium);
         }
 
-        .form-sentence{
-            padding: 0.7rem;
+        .login-message{
+            margin: 1rem;
         }
 
         .inline-form{

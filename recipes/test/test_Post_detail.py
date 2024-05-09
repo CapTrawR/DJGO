@@ -42,7 +42,7 @@ class PostDetailViewsTest(PostTestBase):
         # Need a recipe for this test
         self.make_post(title=needed_title)
 
-    response = self.client.get(
+        response = self.client.get(
         reverse(
             'Posts:Post',
             kwargs={
@@ -50,4 +50,4 @@ class PostDetailViewsTest(PostTestBase):
             }
         )
     )
-    content = response.content.decode('utf-8')
+        content = response.content.decode('utf-8')
