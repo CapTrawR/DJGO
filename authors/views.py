@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.urls import reverse
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from recipes.models import Post
 
 
 # se alguem enviar o metodo post o navegador recebe como post passa para dentro do formolario se nao cria um novo
@@ -85,8 +86,35 @@ def logout_view(request):
         return redirect(reverse('authors:login'))
     
     logout(request)
+    messages.success(request, 'Logged out successfully')
     return redirect(reverse('authors:login'))
+
 
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard(request):
-    return render(request, 'authors/pages/dashboard.html')
+    posts = Post.objects.filter(
+        is_published = False, # o post nao pode estar publicado
+        author=request.user # o user tem que ser o autor do post
+    )
+    return render(
+        request, 'authors/pages/dashboard.html', 
+        context={
+            'posts':posts
+        }
+    )
+
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_post_edit(request, id):
+    post = Post.objects.get(
+        pk = id, # so preciso do id quando quero trazer qualquer elemento
+    )
+    if not post:
+        raise Http404()
+    
+    return render(
+        request, 'authors/pages/dashboard_post.html', 
+        context={
+            'post': post
+        }
+    )
+

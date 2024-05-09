@@ -285,6 +285,7 @@
             background: var(--color-primary-dark);
             color: var(--color-white);
             padding: var(--spacing-gutter-large);
+            margin-bottom: 0;
         }
 
 
@@ -363,10 +364,6 @@
             max-width: 64rem;
             margin: 0 auto;
             margin-bottom: var(--spacing-gutter-medium);
-        }
-
-        .login-message{
-            margin: 1rem;
         }
 
         .inline-form{
@@ -499,6 +496,26 @@
             background: var(--color-debug-light);
             color: var(--color-debug-dark);
           }
+
+          /*Authors*/
+
+          .login-message{
+            margin: 1rem;
+        }
+
+            .authors-dashboard-container{
+            max-width: 64rem;
+            text-align: left;
+            padding: var(--spacing-gutter-medium);
+            margin: 0 auto;
+        }
+
+        .authors-dashboard-container h3,
+        .authors-dashboard-container p,
+        .authors-dashboard-container ul {
+            list-style-type: none;
+            margin: 1rem 0;
+        }
 
           @media (max-with: 600px){
             .main-content-list
