@@ -9,7 +9,10 @@
         <h2> Post Dashboard  ({{post.title}}) </h2>
         {% include 'global/partials/messages.html' %}
         {% include 'authors/pages/partials/login_message.html' %}
-        {% include 'global/partials/form.html' %}
+
+        <div class="left"> {% comment "" %} aqui se usar o left meto isto numa grid dividio mas nao me parece bem!!{% endcomment %}
+            {% include 'global/partials/form.html' %}
+        </div>
     </div>
 
 {% endblock content %}

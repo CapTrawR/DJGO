@@ -65,6 +65,15 @@
             font-family: var(--font-headings);
         }
 
+        img{
+            max-width: 100%;
+        }
+
+        a {
+            color:var(--color-primary);
+            text-decoration: none;
+        }
+
         .conteiner{
             max-width: 144rem; /*1440 pixeis*/
             margin:0 auto; /*isto alinha ao centro*/
