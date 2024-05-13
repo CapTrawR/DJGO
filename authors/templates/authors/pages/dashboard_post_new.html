@@ -1,0 +1,18 @@
+{% extends "global/base.html" %}
+
+{% block title %} Create Post ({{user}}) | 
+
+{%  endblock title %}
+
+{% block content %}
+    <div class="main-content center container"> 
+        <h2> Create Post ({{user}}) </h2>
+        {% include 'global/partials/messages.html' %}
+        {% include 'authors/pages/partials/login_message.html' %}
+
+        <div class="left"> {% comment "" %} aqui se usar o left meto isto numa grid dividio mas nao me parece bem!!{% endcomment %}
+            {% include 'global/partials/form.html' %}
+        </div>
+    </div>
+
+{% endblock content %}

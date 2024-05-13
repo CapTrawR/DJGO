@@ -10,6 +10,11 @@ class Category(models.Model):
         return self.name # isto em admin em vez de mostrar a categoria object 1 vai mostrar o nome que metemos la
 
 
+class Speciality(models.Model):
+    name = models.CharField(max_length=30)
+
+    def __str__(self):
+        return self.name
 
 class Post(models.Model):
     title = models.CharField(max_length=65)
@@ -17,7 +22,8 @@ class Post(models.Model):
     slug = models.SlugField(unique=True)
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
-    speciality = models.CharField(max_length=30)
+    speciality = models.ForeignKey(
+        Speciality, on_delete = models.SET_NULL, null=True, blank=False, default=None)
     post_field = models.TextField(max_length=3000)
     post_field_is_html = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -33,3 +39,5 @@ class Post(models.Model):
 
     def __str__(self): #aqui faz como que mostre o titulo do post
         return self.title 
+    
+    
