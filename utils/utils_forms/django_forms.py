@@ -18,4 +18,16 @@ def strong_password(password):
             'one lowercase letter and one number. Have length should be'
             'at least 8 characters'
         )
-    code='invalid'
+code='invalid'
+
+    # defenir os characters a ser usados na pw!
+def admin_regex(input):
+        regex = re.compile(r'^(?=.*[A-Z])[A-Z][a-z\d\s]{3,}$')
+
+        if not regex.match(input):
+            raise ValidationError(
+            'The description must start with an uppercase letter,' 
+                'contain at least one lowercase letter, one number,' 
+                'and should not contain special characters like <> !"#$ and so on.'
+        )
+code='invalid'

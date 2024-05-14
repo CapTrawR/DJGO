@@ -9,13 +9,22 @@
         <h2> Dashboard ({{user}}) </h2>
 
         {% include 'authors/pages/partials/login_message.html' %}
+        {% include 'global/partials/messages.html' %}
         
         <div class="authors-dashboard-container"> 
             <h3> Your Posts</h3>
             <ul>
                 {% for post in posts  %}
                 <li>
-                    <a href={% url 'authors:dashboard_post_edit' post.id %}>{{post.title}}</a>
+                    <a href="{% url 'authors:dashboard_post_edit' post.id %}">{{post.title}}</a> -
+                    <form
+                     class = "inline-form form-delete" 
+                     action="{% url 'authors:dashboard_post_delete' post.id %}" 
+                     method='POST'
+                     >
+                        {% csrf_token %}
+                        <button class="plaintext-button" type="submit">❌</button>
+                    </form>
                 </li>
                 {%empty%}
                     <li>
@@ -25,5 +34,4 @@
             </ul>
         </div>
     </div>
-    {% include "global/partials/messages.html" %}
 {% endblock content %}

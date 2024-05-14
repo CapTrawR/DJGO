@@ -108,6 +108,7 @@ def dashboard(request):
 def dashboard_post_edit(request, id):
     post = Post.objects.filter(
         is_published = False,
+        author=request.user,
         pk = id, # so preciso do id quando quero trazer qualquer elemento
     ).first() # se usar filter tenho que usar aqui o first() e tambem da !! mostra o 1 da lista!! aula 185
 
@@ -147,7 +148,7 @@ def dashboard_post_edit(request, id):
 
 # aqui criamos novos posts
 @login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_post_new(request, slug):
+def dashboard_post_new(request):
     form = AuthorPostForm(
         data=request.POST or None,
         files=request.FILES or None,
@@ -176,3 +177,19 @@ def dashboard_post_new(request, slug):
             'form_action': reverse('authors:dashboard_post_new')
         }
     )
+
+#
+@login_required(login_url='authors:login', redirect_field_name='next')
+def dashboard_post_delete(request, id):
+    post = Post.objects.filter(
+        is_published=False,
+        author=request.user,
+        pk=id,
+    ).first()
+
+    if not post:
+        raise Http404()
+
+    post.delete()
+    messages.success(request, 'Deleted successfully.')
+    return redirect(reverse('authors:dashboard'))
