@@ -3,7 +3,7 @@ function my_scope() {
     
     for (const form of forms) {
         form.addEventListener('submit', function (e) {
-            e.preventDefault();
+            e.preventDefault(); // previne o usuario de mandar o formulario
             const confirmed = confirm('Are you sure?');
   
             if (confirmed) {

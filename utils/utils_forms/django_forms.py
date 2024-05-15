@@ -22,12 +22,18 @@ code='invalid'
 
     # defenir os characters a ser usados na pw!
 def admin_regex(input):
-        regex = re.compile(r'^(?=.*[A-Z])[A-Z][a-z\d\s]{3,}$')
+    regex = re.compile(r'^[a-zA-Z0-9\s]+$')
 
-        if not regex.match(input):
-            raise ValidationError(
-            'The description must start with an uppercase letter,' 
-                'contain at least one lowercase letter, one number,' 
-                'and should not contain special characters like <> !"#$ and so on.'
+    if not regex.match(input):
+        raise ValidationError(
+            'The description must start with an uppercase letter and may contain lowercase letters,'
+            'numbers, and spaces. It should not contain special characters like <> !#$, and so on.'
         )
 code='invalid'
+
+description = "<<>"
+try:
+    admin_regex(description)
+    print("Descrição válida!")
+except ValidationError as e:
+    print(e)

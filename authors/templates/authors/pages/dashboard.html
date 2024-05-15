@@ -19,10 +19,11 @@
                     <a href="{% url 'authors:dashboard_post_edit' post.id %}">{{post.title}}</a> -
                     <form
                      class = "inline-form form-delete" 
-                     action="{% url 'authors:dashboard_post_delete' post.id %}" 
+                     action="{% url 'authors:dashboard_post_delete' %}" 
                      method='POST'
                      >
                         {% csrf_token %}
+                        <input type="hidden" name="id" value="{{ post.id }}">
                         <button class="plaintext-button" type="submit">❌</button>
                     </form>
                 </li>

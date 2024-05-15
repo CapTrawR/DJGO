@@ -12,7 +12,7 @@ urlpatterns = [
     path('login/create/', views.login_create, name='login_create'),
     path('dashboard/', views.dashboard, name='dashboard'),
     path('logout/', views.logout_view, name='logout'),
-    path('dashboard/post/<int:id>/edit/', views.dashboard_post_edit, name='dashboard_post_edit'),
     path('dashboard/post/new/', views.dashboard_post_new, name='dashboard_post_new'),
-    path('dashboard/post/<int:id>/delete/', views.dashboard_post_delete, name='dashboard_post_delete'),
+    path('dashboard/post/delete/', views.dashboard_post_delete, name='dashboard_post_delete'),
+    path('dashboard/post/<int:id>/edit/', views.dashboard_post_edit, name='dashboard_post_edit'),
 ]

@@ -1,9 +1,8 @@
-import re
 from django import forms
-from recipes.models import Post, Speciality, Category
+from recipes.models import Post, Speciality,Category
 from utils.utils_forms.django_forms import add_attr, ValidationError, admin_regex
 from collections import defaultdict # permite que eu gere um valor padrao para qualquer campo
-# # from utils.strings.strings import is_positive_number
+from utils.strings.strings import is_positive_number
 class AuthorPostForm(forms.ModelForm):
 
     def __init__(self,*args, **kwargs):
@@ -11,15 +10,16 @@ class AuthorPostForm(forms.ModelForm):
 
         self.fields['speciality'].queryset = Speciality.objects.all() # aqui vou bsucar os meus campos todos das especialidades
         self.fields['category'].queryset = Category.objects.all()
-        self._my_errors = defaultdict (list) # a chav padrao tem uma lista vazia por definicao porque s campos podem ter mais que um erro
+        self._my_errors = defaultdict (list) # a chave padrao tem uma lista vazia por definicao porque s campos podem ter mais que um erro
 
         add_attr(self.fields.get('description'), 'class', 'span-2'),# tem que estar no css isto ocupa as 2 posicoes na lista do grid
         add_attr(self.fields.get('post_field'), 'class', 'span-2'),
         add_attr(self.fields.get('category'), 'class', 'span-2'),
         #add_attr(self.fields.get('cover'), 'class', 'span-2'),/ o widget faz exatamete isto !!
+
         self.fields['description'].validators = [admin_regex]
+        
         self.fields['description'].label = 'Description'
-    
     class Meta:
         model = Post
         fields =['title','speciality','category','description', 'post_field' , 'cover']
@@ -53,11 +53,11 @@ class AuthorPostForm(forms.ModelForm):
 
         return super_clean
     
-    # # aqui garanto que nao entram numeros negativos na descricao
     # def clean_description(self):
     #     field_name = 'description'
     #     field_value = self.cleaned_data.get(field_name)
+
     #     if not is_positive_number(field_value):
-    #         self._my_errors[field_name].append('Must be a positive number')
+    #         self._my_errors[field_name].append('Must be a positive number or you cant use the signal - !')
 
     #     return field_value

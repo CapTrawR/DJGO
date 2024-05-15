@@ -129,7 +129,7 @@ def dashboard_post_edit(request, id):
         # aqui faço as minhas validacoes
         post.speciality = form.cleaned_data['speciality']
         post.author = request.user
-        post.post_field_is_htm = False
+        post.post_field_is_html = False
         post.is_published = False
 
         # aqui gravo mesmo na base de dados
@@ -155,7 +155,7 @@ def dashboard_post_new(request):
     )
 
     if form.is_valid():
-        post: Post = form.save(commit=False)
+        post = form.save(commit=False)
         
         post.speciality = form.cleaned_data['speciality']
         post.author = request.user
@@ -180,15 +180,18 @@ def dashboard_post_new(request):
 
 #
 @login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_post_delete(request, id):
+def dashboard_post_delete(request):
+    if not request.POST:
+        raise Http404()
+
+    POST = request.POST
+    id = POST.get('id')
+    
     post = Post.objects.filter(
         is_published=False,
         author=request.user,
         pk=id,
     ).first()
-
-    if not post:
-        raise Http404()
 
     post.delete()
     messages.success(request, 'Deleted successfully.')
