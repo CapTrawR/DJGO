@@ -260,31 +260,46 @@
         }
 
         .postagem-footer a:hover {
-          filter: brightness(2)  
+            filter: brightness(2)  
         }
 
            /* aqui e para a pagina quando expandimos / damos outras scales*/
          
-           .main-content-detail .postagem-list-item{
+        .main-content-detail .postagem-list-item{
             max-width: 84rem;
             margin: 0 auto;
-          }
+        }
   
-          .main-content-detail .postagem-list-item:hover{
+        .main-content-detail .postagem-list-item:hover{
               transform: scale(1);
               box-shadow: -5px 5px 15px rgba(0,0,0, .2);
-          }
+        }
 
-          .post-steps{
+        .post {
+            max-width: 100%; /* Defina a largura máxima do post para ocupar todo o espaço disponível */
+            overflow: hidden; /* Certifique-se de que o conteúdo dentro do post não ultrapasse os limites do contêiner */
+            padding: 1rem; /* Ajuste o padding conforme necessário para garantir espaço suficiente ao redor do texto */
+        } 
+        
+        .post-steps p {
+            max-width: 100%; /* Defina a largura máxima para o texto dentro do post */
+            word-wrap: break-word;
+            white-space: pre-wrap; /* Mantenha espaços em branco e quebras de linha */
+        }
+
+        .post-steps {
             max-width: 84rem;
             height: fit-content;
             padding: var(--spacing-gutter-medium);
-            font: var(--font-primary);
+            font-family: var(--font-primary); /* Corrigido o seletor para font-family */
             width: fit-content;
             margin: auto;
             display: flex;
             flex-flow: row wrap;
-          }
+            word-wrap: break-word;
+            overflow-wrap: break-word; /* Adicione essa linha */
+            overflow: hidden; /* Adiciona overflow:hidden para evitar que o texto saia da div */
+        }
         /* footer de baixo */
         
         .main-footer {
@@ -318,6 +333,7 @@
         .post-steps p,
         .post-steps pre {
             margin: 2rem 0;
+            overflow-wrap: break-word; /* Adicionada a propriedade overflow-wrap */
         }
 
 
@@ -329,12 +345,11 @@
 
         .center {
             text-align: center;
-          }
+        }
           
-          .left {
+        .left {
             text-align: left;
-          }
-
+        }
 
         .m-x{
             margin: 0 var(--spacing-gutter-medium);

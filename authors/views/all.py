@@ -1,5 +1,5 @@
 from authors.forms.post_form import AuthorPostForm
-from .forms import RegisterForm, LoginForm
+from authors.forms import RegisterForm, LoginForm
 from django.http import Http404
 from django.shortcuts import redirect, render
 from django.contrib import messages

@@ -47,11 +47,15 @@
         <div class="postagem-meta postagem-nome">
             <h3 class="postagem-meta-title"><i class="fa fa-stethoscope" aria-hidden="true"></i> Dr.</h3>
             <div class="postagem-meta-text">
-                {{post.first_name}}
+                {% if post.first_name %}
+                    {{ post.first_name }}
+                {% else %}
+                    {{ post.author }}
+                {% endif %}
             </div>
         </div>
         <div class="postagem-meta postagem-gender">
-            <h3 class="postagem-meta-title"><i class="fa fa-venus-mars" aria-hidden="true"></i></i> Especialidade </h3>
+            <h3 class="postagem-meta-title"><i class="fa fa-venus-mars" aria-hidden="true"></i></i> Especialidade  </h3>
             <div class="postagem-meta-text">
                 {{post.speciality}} 
             </div>
