@@ -103,49 +103,6 @@ def dashboard(request):
         }
     )
 
-# aqui editamos novos posts
-@login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_post_edit(request, id):
-    post = Post.objects.filter(
-        is_published = False,
-        author=request.user,
-        pk = id, # so preciso do id quando quero trazer qualquer elemento
-    ).first() # se usar filter tenho que usar aqui o first() e tambem da !! mostra o 1 da lista!! aula 185
-
-    if not post:
-        raise Http404()
-    
-    # aqui passo o meu form para la
-    form = AuthorPostForm(
-        request.POST or None,
-        files = request.FILES or None, # ou cria um form ou nao cria nada
-        instance = post,
-    )
-
-    if form.is_valid():
-    #agora o form e valido eu posso tentar gravar
-        post = form.save(commit=False) # finge que guarda mas mete num variavel!!
-
-        # aqui faço as minhas validacoes
-        post.speciality = form.cleaned_data['speciality']
-        post.author = request.user
-        post.post_field_is_html = False
-        post.is_published = False
-
-        # aqui gravo mesmo na base de dados
-        post.save()
-
-        messages.success(request, 'Your post have been edit successfully')
-        return redirect(reverse('authors:dashboard_post_edit', args=(id,)))
-    
-    return render(
-        request, 'authors/pages/dashboard_post.html', 
-        context={
-            'post': post,
-            'form': form,
-        }
-    )
-
 # aqui criamos novos posts
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard_post_new(request):
