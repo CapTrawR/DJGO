@@ -7,12 +7,19 @@ from authors import *
 from django.shortcuts import redirect,render
 from django.urls import reverse
 from recipes.models import Post
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
+
+@method_decorator(
+            login_required(login_url='authors:login', redirect_field_name='next'),
+            name='dispatch'
+    )
 class DashboardPost(View):
     # vai me buscar o post especifico 
-    def get_post(self, id):
+    def get_post(self, id=None):
         post = None
-        if id:
+        if id is not None:
             post = Post.objects.filter(
                 is_published=False,
                 author = self.request.user,
@@ -36,13 +43,12 @@ class DashboardPost(View):
             }
         )
     
-    def get(self,request, id):
+    def get(self,request, id = None):
         post=self.get_post(id)
         form=AuthorPostForm(instance=post)
         return self.render_post(form)
     
-    
-    def post(self, request, id):
+    def post(self, request, id = None):
         post = self.get_post(id)
         form = AuthorPostForm(
             data=request.POST or None,
@@ -64,6 +70,6 @@ class DashboardPost(View):
             post.save()
 
             messages.success(request, 'Your post have been edit successfully')
-            return redirect(reverse('authors:dashboard_post_edit', args=(id,)))
+            return redirect(reverse('authors:dashboard_post_edit', args=(post.id,)))
 
         return self.render_post(form)

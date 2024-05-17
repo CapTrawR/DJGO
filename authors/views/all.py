@@ -103,38 +103,6 @@ def dashboard(request):
         }
     )
 
-# aqui criamos novos posts
-@login_required(login_url='authors:login', redirect_field_name='next')
-def dashboard_post_new(request):
-    form = AuthorPostForm(
-        data=request.POST or None,
-        files=request.FILES or None,
-    )
-
-    if form.is_valid():
-        post = form.save(commit=False)
-        
-        post.speciality = form.cleaned_data['speciality']
-        post.author = request.user
-        post.post_field_is_html = False
-        post.is_published = False
-
-        post.save()
-
-        messages.success(request, 'Your Post have been successfully saved in our database!')
-        return redirect(
-            reverse('authors:dashboard_post_edit', args=(post.id,))
-        )
-
-    return render(
-        request,
-        'authors/pages/dashboard_post_new.html', # aqui leva me para a pagina html que eu quero
-        context={
-            'form': form,
-            'form_action': reverse('authors:dashboard_post_new')
-        }
-    )
-
 #
 @login_required(login_url='authors:login', redirect_field_name='next')
 def dashboard_post_delete(request):
