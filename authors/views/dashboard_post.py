@@ -33,20 +33,20 @@ class DashboardPost(View):
         return post
 
     #mete me o post a ser visto
-    def render_post(self, form):
+    def render_post(self, form, post_title):
         return render(
             self.request,
             'authors/pages/dashboard_post.html',
             context={
                 'form': form,
-                
+                'post_title': post_title,
             }
         )
     
     def get(self,request, id = None):
         post=self.get_post(id)
         form=AuthorPostForm(instance=post)
-        return self.render_post(form)
+        return self.render_post(form,post.title)
     
     def post(self, request, id = None):
         post = self.get_post(id)
