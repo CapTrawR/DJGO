@@ -3,6 +3,7 @@ from .models import Post
 from django.http.response import Http404
 from django.db.models import Q # quero and ou or 
 from utils.pagination.pagination import make_pagination
+from django.views.generic import ListView
 
 import os
 
@@ -13,6 +14,32 @@ PER_PAGE = int(os.environ.get('PER_PAGE', 6))
 # Create your views here.
 # sao as funcoes para as urls
 #preciso faazer uma pasta chamada template
+
+class PostListViewBase(ListView):
+    model = Post
+    context_object_name = 'posts'
+    paginate_by = None
+    ordering = ['-id']
+    template_name = 'recipes/pages/home.html'
+
+    def get_queryset(self,*args, **kwargs):
+        qs = super().get_queryset(*args, **kwargs)
+        qs = qs.filter(
+            is_published = True,
+        )
+        return qs
+    
+    def get_context_data(self,*args, **kwargs ):
+        ctx = super().get_context_data(*args, **kwargs)
+        page_object, pagination_range = make_pagination(
+            self.request,ctx.get('posts'),
+            PER_PAGE
+        )
+        ctx.update(
+            {'posts': page_object, 'pagination_range':pagination_range}
+        )
+        return ctx
+        
 
 def home(request):
     posts = Post.objects.filter(is_published = True).order_by('-id') # aqui e como eu vou buscar o que eu tenho na BD a fazer is_published = True estou a ir buscar a bd bollean

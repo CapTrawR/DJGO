@@ -46,7 +46,7 @@ class DashboardPost(View):
     def get(self,request, id = None):
         post=self.get_post(id)
         form=AuthorPostForm(instance=post)
-        return self.render_post(form,post.title)
+        return self.render_post(form,post)
     
     def post(self, request, id = None):
         post = self.get_post(id)
@@ -73,3 +73,15 @@ class DashboardPost(View):
             return redirect(reverse('authors:dashboard_post_edit', args=(post.id,)))
 
         return self.render_post(form)
+
+@method_decorator(
+            login_required(login_url='authors:login', redirect_field_name='next'),
+            name='dispatch'
+    )
+class DashboardPostDelete(DashboardPost):
+    def post(self,*args, **kwargs):
+        post = self.get_post(self.request.POST.get('id'))
+        post.delete()
+        
+        messages.success(self.request, 'Your post have been delete successfully')
+        return redirect(reverse('authors:dashboard'))
