@@ -274,12 +274,6 @@
               transform: scale(1);
               box-shadow: -5px 5px 15px rgba(0,0,0, .2);
         }
-
-        .post {
-            max-width: 100%; /* Defina a largura máxima do post para ocupar todo o espaço disponível */
-            overflow: hidden; /* Certifique-se de que o conteúdo dentro do post não ultrapasse os limites do contêiner */
-            padding: 1rem; /* Ajuste o padding conforme necessário para garantir espaço suficiente ao redor do texto */
-        } 
         
         .post-steps p {
             max-width: 100%; /* Defina a largura máxima para o texto dentro do post */

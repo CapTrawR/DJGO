@@ -14,8 +14,8 @@ app_name = 'Posts'
 
 
 urlpatterns= [
-    path('',views.PostListViewBase.as_view(), name="Home"), # implementar url correctas
-    path('Posts/search/', views.search, name = 'search'),
-    path('Posts/category/<int:category_id>/', views.category, name="category"),
-    path('Posts/<int:id>/', views.postview, name="post"),
+    path('',views.PostListViewHome.as_view(), name="Home"), # implementar url correctas
+    path('Posts/search/', views.PostListViewSearch.as_view(), name = 'search'),
+    path('Posts/category/<int:category_id>/', views.PostListViewCategory.as_view(), name="category"),
+    path('Posts/<int:pk>/', views.PostDetail.as_view(), name="post"),
 ]
